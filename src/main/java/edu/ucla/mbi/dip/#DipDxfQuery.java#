@@ -1,0 +1,409 @@
+package edu.ucla.mbi.dip;
+
+/* =============================================================================
+ * $Id:: DipDxfQuery.java 3258 2013-06-25 14:26:12Z lukasz                     $
+ * Version: $Rev:: 3258                                                        $
+ *==============================================================================
+ *                                                                             $
+ *  DipDxfXref  - retrieves xrefs                                              $
+ *                                                                             $
+ *    NOTES:   should return ttl info ?                                        $
+ *                                                                             $
+ *=========================================================================== */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.*;
+import java.text.NumberFormat;
+
+import edu.ucla.mbi.dip.*;
+import edu.ucla.mbi.dxf14.*;
+import edu.ucla.mbi.orm.*;
+
+import org.compass.core.*;
+import org.compass.core.config.CompassConfiguration;
+import org.compass.core.config.CompassConfigurationFactory;
+
+public class DipDxfQuery {
+    
+    static edu.ucla.mbi.dxf14.ObjectFactory dof
+	= new edu.ucla.mbi.dxf14.ObjectFactory();
+
+    public static edu.ucla.mbi.dxf14.DatasetType
+        queryLC( String query, String detail ) {
+	
+	Log log = LogFactory.getLog(DipDxfQuery.class);
+	log.info("DipDxfQuery: queryLC called");
+        log.info("DipDxfQuery: query= "+query+" det="+detail);
+	
+	DatasetType res = dof.createDatasetType();
+
+	if( query != null ) {
+
+            // MIQLX
+            //------
+
+            Map<String,List<String>> miqlx = null;
+
+            if( query != null && query.indexOf( " Miqlx" ) > -1 ){
+                MiqlxFilter mf = new MiqlxFilter();
+                query = mf.process( query );
+                miqlx = mf.getMiqlx();
+            }
+
+            log.info("query:" + query +":mqlx:" + miqlx + ":");
+            
+	    try {
+		CompassSession searchsession = 
+                    DipContext.getCompass().openSession();
+                CompassTransaction stx = searchsession.beginTransaction();
+                
+                CompassHits hits = searchsession.find( query );
+                log.info(" Found [" + hits.getLength() + "]");
+                
+		if( hits.getLength()>0 ){
+                    
+                    if( miqlx != null && miqlx.get( "MiqlxFacetBy:" ) != null  ){
+                        Map<String,String> facet = 
+                            buildFacet( hits, miqlx.get( "MiqlxFacetBy:" ) );
+
+                        NodeType facetNode 
+                            = dxfFacet( query, miqlx.get( "MiqlxFacetBy:" ), 
+                                        facet );
+
+                        if( facetNode != null ){
+                            res.getNode().add( facetNode );      
+                        }
+
+                    } else {
+
+                        NodeType resultNode = dxfResult( query, hits );
+                        
+                        if( resultNode != null ){
+                            res.getNode().add( resultNode );
+                        }                        
+                    }
+                    
+		    hits.close();
+                    stx.commit();
+		    searchsession.close();
+		}
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+	}
+	return res;
+    }
+    
+    //--------------------------------------------------------------------------
+
+    private static Map<String,String> 
+        buildFacet( CompassHits hits, List<String> facetFldList ){ 
+        
+        Log log = LogFactory.getLog( DipDxfQuery.class );
+        
+        if( facetFldList == null && facetFldList.size() == 0) return null;
+
+        Map<String,String> facetMap = new HashMap<String,String>();
+        Map<String,Integer> facetCnt = new HashMap<String,Integer>();
+
+        // known fields:
+        //
+        // field                    property
+        //----------------------------------------------------------------------
+        // organism(p)              nd_nd_taxname nd_nd_taxid
+        // journal(a)               journal
+        // year(a)                  year
+        // method(x)                ev_int_id_met_name,ev_int_id_met_cvid
+        // scale(x)                 ev_ev_scale_name ev_ev_scale_cvid
+        // interaction type (x)     ev_int_det_type_name,ev_int_det_type_cvid
+        // interaction type (i)     
+        // quality status (i)
+        //----------------------------------------------------------------------
+
+        if( facetFldList.get(0).equals( "organism" )) {
+                     
+            for (int i = 0; i < hits.getLength(); i++ ){
+                
+                Resource resource = hits.resource(i);
+                Property[] pa = resource.getProperties();
+           
+                for(int j=0; j<pa.length;j++){
+                    log.debug( "resId="+ resource.getId() +" name="+ pa[j].getName() 
+                               + " value=" + pa[j].getStringValue() );                    
+                }
+     
+                if( resource.getProperty("nd_nd_taxname") != null 
+                    && resource.getProperty("nd_nd_taxid") != null ){
+
+                    String txn  = resource
+                        .getProperty("nd_nd_taxname").getStringValue();
+                    String txid = resource
+                        .getProperty("nd_nd_taxid").getStringValue();
+                    
+                    if( txn != null && txid != null ){
+                        if( facetCnt.get(txid) == null){
+                            facetCnt.put(txid, 1);
+                        } else {
+                            facetCnt.put( txid,
+                                          facetCnt.get(txid)+1);
+                            facetMap.put( txid, 
+                                          facetCnt.get(txid) + ":" + txn );
+                        }
+                    }
+                }
+            }             
+        }
+        
+        return facetMap;
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private static edu.ucla.mbi.dxf14.NodeType
+        dxfResult( String query, CompassHits hits ){
+
+        Log log = LogFactory.getLog(DipDxfQuery.class);
+
+        edu.ucla.mbi.dxf14.NodeType resNode= dof.createNodeType();
+        
+        resNode.setLabel("Text Search Report");
+        
+        TypeDefType res_type = dof.createTypeDefType();
+        res_type.setNs("dxf");
+        res_type.setAc("dxf:0026");
+        res_type.setName("search-report");
+        
+        resNode.setType( res_type );
+        
+        NodeType.AttrList al= dof.createNodeTypeAttrList();
+        resNode.setAttrList(al);
+	
+        AttrType at= dof.createAttrType();
+        at.setName("text-query-string");
+        
+        AttrType.Value atv= dof.createAttrTypeValue();
+        at.setValue( atv );
+        atv.setValue( query );
+        
+        al.getAttr().add( at );
+        
+        edu.ucla.mbi.dxf14.NodeType.PartList 
+            part_list= dof.createNodeTypePartList();
+        resNode.setPartList(part_list);
+        
+        NumberFormat scoreFormat = NumberFormat.getInstance();
+        scoreFormat.setMaximumFractionDigits( 3 );
+        
+        for (int i = 0; i < hits.getLength(); i++) {
+            
+            Object value = hits.data(i);
+            Resource resource = hits.resource(i);
+            float score=hits.score(i);
+            
+            if( DipContext.getIndexReport() ) {
+                Property[] pa = resource.getProperties();
+                log.info("\nQuery: resource alias=" + 
+                         resource.getAlias());
+                
+                for(int j=0; j<pa.length;j++){
+                    log.info("Query:  property=" + 
+                             pa[j].getName()+
+                             " value=" + 
+                             pa[j].getStringValue());
+                }
+            }
+            edu.ucla.mbi.dxf14.NodeType.PartList.Part
+                part= dof.createNodeTypePartListPart();
+            part_list.getPart().add(part);
+            
+            TypeDefType part_type = dof.createTypeDefType();
+            part_type.setNs("dxf");
+            part_type.setAc("dxf:0027");
+            part_type.setName("search-result");
+            part.setType(part_type);
+            
+            PartType.AttrList hit_attr_list = 
+                dof.createPartTypeAttrList();
+            part.setAttrList(hit_attr_list);
+            
+            AttrType hit_attr= dof.createAttrType();
+            hit_attr.setName("search-score");
+            
+            AttrType.Value hit_attr_value = 
+                dof.createAttrTypeValue();
+            hit_attr.setValue(hit_attr_value);
+            hit_attr_value.setValue(scoreFormat.format(score));
+            hit_attr_list.getAttr().add(hit_attr);
+            
+            edu.ucla.mbi.dxf14.NodeType result_node=
+                result_node= dof.createNodeType();
+            part.setNode(result_node);
+            String cac="";
+            
+            if(resource.getAlias().equals("node")){
+                cac="DIP-"+resource.getId()+"N";
+                TypeDefType ctp = dof.createTypeDefType();
+                ctp.setNs("dxf");
+                ctp.setAc("dxf:0003");
+                ctp.setName("protein");
+                result_node.setType(ctp);			    
+            }
+            if(resource.getAlias().equals("link")){
+                cac="DIP-"+resource.getId()+"E";
+                TypeDefType ctp = dof.createTypeDefType();
+                ctp.setNs("dxf");
+                ctp.setAc("dxf:0004");
+                ctp.setName("link");
+                result_node.setType(ctp);
+            }
+            if(resource.getAlias().equals("dipdatasrc")){
+                cac="DIP-"+resource.getId()+"S";
+                TypeDefType ctp = dof.createTypeDefType();
+                ctp.setNs("dxf");
+                ctp.setAc("dxf:0016");
+                ctp.setName("data-source");
+                result_node.setType(ctp);
+            }
+            if(resource.getAlias().equals("evidence")){
+                cac="DIP-"+resource.getId()+"X";
+                TypeDefType ctp = dof.createTypeDefType();
+                ctp.setNs("dxf");
+                ctp.setAc("dxf:0015");
+                ctp.setName("evidence");
+                result_node.setType(ctp);
+            }
+            result_node.setNs("dip");
+            result_node.setAc(cac);
+            result_node.setLabel(cac);
+            
+            NodeType.XrefList xref_list = 
+                dof.createNodeTypeXrefList();
+            result_node.setXrefList(xref_list);
+            
+            XrefType cxref=dof.createXrefType();
+            cxref.setNs("dip");
+            cxref.setAc(cac);
+            cxref.setTypeNs("dxf");
+            cxref.setTypeAc("dxf:0009");
+            cxref.setType("identical-to");
+            xref_list.getXref().add(cxref);
+        }
+        
+        return resNode;
+    }
+
+    //--------------------------------------------------------------------------
+
+    private static edu.ucla.mbi.dxf14.NodeType
+        dxfFacet( String query, List<String> facetFieldList, 
+                  Map<String,String> facet ){
+        
+        Log log = LogFactory.getLog( DipDxfQuery.class );
+
+        edu.ucla.mbi.dxf14.NodeType resNode = dof.createNodeType();
+        
+        resNode.setLabel( "Facet Report" );
+        
+        TypeDefType res_type = dof.createTypeDefType();
+        res_type.setNs("dxf");
+        res_type.setAc("dxf:0063");
+        res_type.setName("facet-report");
+        
+        resNode.setType( res_type );
+        
+        NodeType.AttrList al =  dof.createNodeTypeAttrList();
+        resNode.setAttrList( al );
+        
+        AttrType at= dof.createAttrType();
+        at.setName( "text-query-string" );
+
+        AttrType.Value atv = dof.createAttrTypeValue();
+        at.setValue( atv );
+        atv.setValue( query );
+        al.getAttr().add( at );
+
+        for( Iterator<String> ffi = facetFieldList.iterator(); 
+             ffi.hasNext(); ){
+            
+            String ff = ffi.next();
+
+            AttrType ffat= dof.createAttrType();
+            ffat.setName( "facet-field" );
+            
+            AttrType.Value ffatv = dof.createAttrTypeValue();
+            ffat.setValue( ffatv );
+            ffatv.setValue( ff );
+            al.getAttr().add( ffat );            
+        }
+
+        if( facet == null || facet.size() == 0 ){
+            return null;
+        }
+        
+        edu.ucla.mbi.dxf14.NodeType.PartList
+            part_list= dof.createNodeTypePartList();
+        resNode.setPartList( part_list );
+
+        for ( Iterator<String> i = facet.keySet().iterator(); i.hasNext(); ){
+
+            String key = i.next();
+            String val = facet.get( key );
+
+            String cnt = val.substring( 0, val.indexOf( ":" ) );
+            String name = val.substring( val.indexOf( ":" ) + 1 );
+            
+            edu.ucla.mbi.dxf14.NodeType.PartList.Part
+                part= dof.createNodeTypePartListPart();
+            part_list.getPart().add(part);
+            
+            TypeDefType part_type = dof.createTypeDefType();
+            part_type.setNs("dxf");
+            part_type.setAc("dxf:0027");
+            part_type.setName("search-result");
+            part.setType( part_type );
+            
+            PartType.AttrList hit_attr_list = 
+                dof.createPartTypeAttrList();
+            part.setAttrList(hit_attr_list);
+            
+            AttrType hit_attr= dof.createAttrType();
+            hit_attr.setName( "count" );
+            
+            AttrType.Value hit_attr_value = 
+                dof.createAttrTypeValue();
+            hit_attr.setValue(hit_attr_value);
+            hit_attr_value.setValue(cnt);
+            hit_attr_list.getAttr().add(hit_attr);
+            
+            edu.ucla.mbi.dxf14.NodeType result_node=
+                result_node= dof.createNodeType();
+            part.setNode(result_node);
+            String cac="";
+            
+            TypeDefType ctp = dof.createTypeDefType();
+            ctp.setNs("dxf");
+            ctp.setAc("dxf:0003");
+            ctp.setName("organism");
+            result_node.setType(ctp);			    
+            
+            result_node.setNs("taxid");
+            result_node.setAc( key );
+            result_node.setLabel( name );
+            
+            NodeType.XrefList xref_list = 
+                dof.createNodeTypeXrefList();
+            result_node.setXrefList(xref_list);
+            
+            XrefType cxref=dof.createXrefType();
+            cxref.setNs( "taxid" );
+            cxref.setAc( key );
+            cxref.setTypeNs( "dxf" );
+            cxref.setTypeAc( "dxf:0009" );
+            cxref.setType( "identical-to" );
+            xref_list.getXref().add( cxref );            
+        }     
+        return resNode;
+    }
+}

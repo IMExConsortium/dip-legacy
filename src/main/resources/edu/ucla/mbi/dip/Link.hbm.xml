@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.Link" table="ilist" lazy="false">
+     <id name="id" column="ikey">
+       <generator class="native">
+        <param name="sequence">ilist_ikey_seq</param>
+       </generator>
+     </id>
+
+     <property name="name"       column="name"/>
+     <property name="nodeCount"  column="ncnt"/>
+
+     <component name="quality" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dip')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select 'dtp:0001')"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select core)"/>
+       <property name="postFix" type="java.lang.String"
+                 formula="(select core)"/>
+     </component>
+
+     <many-to-one name="cvType"   column="cvt" not-null="true" lazy="false"/>
+     <many-to-one name="cvIntType"   column="cv_itype" not-null="true" lazy="false"/>
+     <many-to-one name="cvIntCoreType" column="cv_itype_core" not-null="true" lazy="false"/>
+
+<!--  NOTE: map if precalculated ?
+     <property name="evdAllCount" column="evd_all_cnt"/>
+     <property name="evdHtCount" column="evd_ht_cnt"/>
+     <property name="infAllCount" column="inf_all_cnt"/>
+     <property name="infHtCount" column="inf_ht_cnt"/>
+-->
+  
+     <set name="lnode" lazy="false" cascade="all">
+        <key column="ikey"/>
+	<one-to-many class="edu.ucla.mbi.dip.LNode" />
+     </set>
+
+     <set name="xrefs" lazy="false">
+        <key column="lntgt_id"/>
+        <one-to-many class="edu.ucla.mbi.dip.LinkCrossRef"/>
+     </set>
+
+     <set name="evidence" lazy="false" cascade="all">
+        <key column="ikey"/>
+	<one-to-many class="edu.ucla.mbi.dip.Evidence" />
+     </set>
+
+
+     <set name="inference" lazy="false" cascade="all">
+        <key column="i_key"/>
+	<one-to-many class="edu.ucla.mbi.dip.Inference" />
+     </set>
+
+   </class>
+
+</hibernate-mapping>
+
+

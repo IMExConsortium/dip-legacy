@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+
+<!-- ========================================================================
+ ! $HeadURL::                                                               $
+ ! $Id::                                                                    $
+ ! Version: $Rev::                                                          $
+ !===========================================================================
+ !
+ ! DipNode: compass maping
+ !
+ !======================================================================= -->
+
+<compass-core-mapping package="edu.ucla.mbi.dip">
+
+    <class name="Organism" alias="organism" root="true">
+
+        <id name="id"/>
+           
+        <property name="taxId">
+            <meta-data>taxid</meta-data>
+        </property>
+
+        <property name="commonName">
+            <meta-data>taxcomm</meta-data>
+            <meta-data>name</meta-data>
+        </property>
+        <property name="name">
+            <meta-data>taxname</meta-data>
+            <meta-data>name</meta-data>
+        </property>
+
+    </class>
+
+</compass-core-mapping>

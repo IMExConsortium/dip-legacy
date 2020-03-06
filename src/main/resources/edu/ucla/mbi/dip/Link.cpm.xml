@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+
+<!-- ======================================================================
+ ! $HeadURL::                                                             $
+ ! $Id::                                                                  $
+ ! Version: $Rev::                                                        $
+ !=========================================================================
+ !
+ ! Link: compass maping
+ !
+ !===================================================================== -->
+
+<compass-core-mapping package="edu.ucla.mbi.dip">
+
+ <class name="Link" alias="link" root="true" support-unmarshall="false" >
+  <id name="id">
+   <meta-data>dip_id</meta-data>
+  </id>
+
+  <property name="accession">
+    <meta-data>dip</meta-data>
+  </property>
+
+  <component name="quality" cascade="save"/>
+  <component name="lnode" cascade="save" prefix="nd_" />
+  <component name="cvType" cascade="save"/>    
+ </class>
+
+ <class name="CvType" alias="cvtype" root="true">
+   <id name="id"/>
+   <property name="name">
+    <meta-data>name</meta-data>
+   </property>
+   <property name="ns">
+    <meta-data>ns</meta-data>
+   </property>
+   <property name="ac">
+    <meta-data>ac</meta-data>
+   </property>
+  </class>
+
+
+
+
+
+</compass-core-mapping>

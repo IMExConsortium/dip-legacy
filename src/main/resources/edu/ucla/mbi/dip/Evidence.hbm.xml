@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.Evidence" table="evlist" lazy="false">
+     <id name="id" column="ekey">
+      <generator class="native">
+       <param name="sequence">evlist_ekey_seq</param>
+      </generator>
+     </id>
+
+     <property name="status" type="java.lang.Long" column="status" />
+
+     <many-to-one name="link"      column="ikey" />
+     <many-to-one name="dataSrc"   column="skey" />
+
+     <many-to-one name="cvtDetMethod" column="det_mth_cvt_id"/>
+     <many-to-one name="cvtDetType"   column="det_tpe_cvt_id"/>
+     <many-to-one name="cvtExpScale"  column="exp_scale_cvt_id"/>
+
+
+     <component name="evidScale" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dip')"/>
+       <property name="ac" type="java.lang.String"
+                 column="cv_scl"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select scl)"/>
+     </component> 
+   
+     <component name="detMethod" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'psi-mi')"/>
+       <property name="ac" type="java.lang.String"
+                 column="mi_int_det"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select mthlist.name from mthlist where mthlist.mkey = mkey)"/>
+     </component> 
+   
+     <component name="detPartStatus" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dip')"/>
+       <property name="ac" type="java.lang.String"
+                 column="cv_level"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select level)"/>
+     </component> 
+
+     <property name="imexId" type="java.lang.Long"
+       formula="(select max(imex.imexid) from imex where imex.ekey=ekey)"/>
+
+     <property name="imex254" type="java.lang.String"
+       formula="(select max(imex.imex254) from imex where imex.ekey=ekey)"/>
+
+     <property name="mif254" type="java.lang.String"
+       formula="(select imex.mif254 from imex where imex.ekey=ekey)"/>
+
+     <component name="source" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'PubMed')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select slist.pmid from slist where slist.skey=skey)"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select slist.pmid from slist where slist.skey=skey)"/>
+     </component> 
+
+      
+     <component name="evidType" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dxf')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select 'dxf:0015')"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select 'evidence')"/>
+       <property name="postFix" type="java.lang.String"
+                 formula="(select 'X')"/>
+     </component> 
+      
+     <component name="evidFor" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dip')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select 'DIP-'||ikey||'E')"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select 'evidence-for')"/>
+       <property name="postFix" type="java.lang.String"
+                 formula="(select 'E')"/>
+     </component> 
+
+     <component name="evidScope" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'dip')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select level)"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select level)"/>
+     </component> 
+   
+     <component name="detType" class="edu.ucla.mbi.dip.CvType">
+       <property name="ns" type="java.lang.String"
+                 formula="(select 'psi-mi')"/>
+       <property name="ac" type="java.lang.String"
+                 formula="(select 'MI:0218')"/>
+       <property name="name" type="java.lang.String"
+                 formula="(select 'physical interaction')"/>
+     </component> 
+   
+   </class>
+
+</hibernate-mapping>

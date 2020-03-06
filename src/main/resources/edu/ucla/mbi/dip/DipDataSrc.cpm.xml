@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+
+<!-- ======================================================================
+ ! $HeadURL::                                                             $
+ ! $Id::                                                                  $
+ ! Version: $Rev::                                                        $
+ !=========================================================================
+ !
+ ! DipDataSrc: compass maping
+ !
+ !===================================================================== -->
+
+<compass-core-mapping package="edu.ucla.mbi.dip">
+
+ <class name="DataSrc" alias="datasrc" root="true" support-unmarshall="false" >
+  <id name="id">
+   <meta-data>dip_id</meta-data>
+  </id>
+  </class>
+
+  <class name="DipDataSrc" alias="dipdatasrc" extends="datasrc" >
+
+    <property name="authors">
+     <meta-data>author</meta-data>
+    </property>
+    <property name="title">
+     <meta-data>title</meta-data>
+    </property>    
+    <property name="jname">
+     <meta-data>journal</meta-data>
+    </property>    
+    <property name="volume">
+     <meta-data>volume</meta-data>
+    </property>    
+    <property name="issue">
+     <meta-data>issue</meta-data>
+    </property>    
+    <property name="year">
+     <meta-data>year</meta-data>
+    </property>    
+    <property name="pages">
+     <meta-data>pages</meta-data>
+    </property>    
+    <property name="abstract">
+     <meta-data>abstract</meta-data>
+    </property>    
+    <property name="nlmid">
+     <meta-data>nlmid</meta-data>
+    </property>    
+    <property name="pmid">
+     <meta-data>pmid</meta-data>
+    </property>    
+
+    <property name="accession">
+      <meta-data>dip</meta-data>
+    </property>
+
+
+
+    <component name="evidence" cascade="all" max-depth="5" prefix="ev_"/>
+
+  </class>
+
+</compass-core-mapping>

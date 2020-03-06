@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.LNode" table="p_i" lazy="false">
+     <id name="id" column="pikey">
+      <generator class="native">
+       <param name="sequence">p_i2_pikey_seq</param>
+      </generator>
+     </id>
+ 
+     <property name="label"   column="shn"/>
+     <property name="name"    column="name"/>
+
+     <many-to-one name="node" column="pkey" not-null="true" />
+     <many-to-one name="link" column="ikey" />
+
+   </class>
+
+</hibernate-mapping>
+
+

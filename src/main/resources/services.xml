@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.4  Built on : Apr 26, 2008 (06:24:30 EDT) -->
+<serviceGroup>
+    <service name="dipPublic">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="edu.ucla.mbi.dip.soap.dxf.axis2.DipPublicMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">edu.ucla.mbi.dip.soap.dxf.axis2.DipPublicImplementation</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="getNodeRange" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getNodeRangeResponse</outputActionMapping>
+        </operation>
+        <operation name="getLink" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getLinkResponse</outputActionMapping>
+        </operation>
+        <operation name="getSourceList" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getSourceListResponse</outputActionMapping>
+        </operation>
+        <operation name="getNodeBounds" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getNodeBoundsResponse</outputActionMapping>
+        </operation>
+        <operation name="query" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/queryResponse</outputActionMapping>
+        </operation>
+        <operation name="getImexSRec" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getImexSRecResponse</outputActionMapping>
+        </operation>
+        <operation name="getNode" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getNodeResponse</outputActionMapping>
+        </operation>
+        <operation name="getLinkList" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getLinkListResponse</outputActionMapping>
+        </operation>
+        <operation name="getCrossRefList" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getCrossRefListResponse</outputActionMapping>
+        </operation>
+        <operation name="setImexSRec" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/setImexSRecResponse</outputActionMapping>
+        </operation>
+        <operation name="getLinkBounds" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getLinkBoundsResponse</outputActionMapping>
+        </operation>
+        <operation name="getLinkRange" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getLinkRangeResponse</outputActionMapping>
+        </operation>
+        <operation name="transform" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/transformResponse</outputActionMapping>
+        </operation>
+        <operation name="getDipSRec" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getDipSRecResponse</outputActionMapping>
+        </operation>
+        <operation name="matchNode" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/matchNodeResponse</outputActionMapping>
+        </operation>
+        <operation name="getEvidence" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getEvidenceResponse</outputActionMapping>
+        </operation>
+        <operation name="getNodeList" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getNodeListResponse</outputActionMapping>
+        </operation>
+        <operation name="setNode" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/setNodeResponse</outputActionMapping>
+        </operation>
+        <operation name="getLinksByNodeSet" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getLinksByNodeSetResponse</outputActionMapping>
+        </operation>
+        <operation name="getCounts" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getCountsResponse</outputActionMapping>
+        </operation>
+        <operation name="setEvidence" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/setEvidenceResponse</outputActionMapping>
+        </operation>
+        <operation name="getEvidenceList" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getEvidenceListResponse</outputActionMapping>
+        </operation>
+        <operation name="getSourceRange" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getSourceRangeResponse</outputActionMapping>
+        </operation>
+        <operation name="setLink" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/setLinkResponse</outputActionMapping>
+        </operation>
+        <operation name="getSource" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getSourceResponse</outputActionMapping>
+        </operation>
+        <operation name="getSourceBounds" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://mbi.ucla.edu/services/dip">
+            <actionMapping>\"\"</actionMapping>
+            <outputActionMapping>http://mbi.ucla.edu/services/dip/DipPublicPortType/getSourceBoundsResponse</outputActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

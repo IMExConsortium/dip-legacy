@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+
+<!-- ========================================================================
+ ! $HeadURL::                                                               $
+ ! $Id::                                                                    $
+ ! Version: $Rev::                                                          $
+ !===========================================================================
+ !
+ ! DipNode: compass maping
+ !
+ !======================================================================= -->
+
+<compass-core-mapping package="edu.ucla.mbi.dip">
+
+    <class name="DipNode" alias="node" root="true" support-unmarshall="false">
+
+        <id name="id">
+            <meta-data>dip_id</meta-data>
+        </id>
+        <property name="name">
+            <meta-data>name</meta-data>
+        </property>
+        <property name="label">
+            <meta-data>label</meta-data>
+        </property>
+
+        <property name="uniProt">
+            <meta-data>uniprot</meta-data>
+            <meta-data>uniprotkb</meta-data>
+            <meta-data>uniProt</meta-data>
+        </property>    
+
+        <property name="refSeq">
+            <meta-data>refseq</meta-data>
+            <meta-data>refSeq</meta-data>
+        </property>    
+
+        <property name="accession">
+            <meta-data>dip</meta-data>
+        </property>    
+
+        <component name="organism" cascade="save" />
+
+    </class>
+
+</compass-core-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.Counts" table="txstat" lazy="false">
+     <id name="id" column="id">
+       <generator class="native"/>
+     </id>
+      <property name="taxid" column="txid"/>
+      <property name="imexSrcId" column="imid"/>
+      <property name="processingStatusId" column="rsid"/>
+      <property name="proteinCount" column="ndcnt"/>
+      <property name="interactionCount" column="edcnt"/>
+      <property name="evidenceCount" column="evcnt"/>
+      <property name="imexEvidenceCount" column="imcnt"/>
+      <property name="authorInferenceCount" column="auicnt"/>
+      <property name="autoInferenceCount" column="aticnt"/>
+      <property name="sourceCount" column="srcnt"/>
+      <property name="imexSourceCount" column="imsrcnt"/>
+      <property name="speciesCount" column="txcnt"/>
+   </class>
+
+</hibernate-mapping>

@@ -1,0 +1,72 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<!-- #==========================================================================
+     # $Id:: hibernate.cfg.xml 2190 2012-04-23 22:30:55Z lukasz                $
+     # Version: $Rev:: 2190                                                    $
+     #==========================================================================
+     #                                                                         $
+     # Dip Legacy Web Services: hibernate configuration                        $
+     #                                                                         $
+     #====================================================================== -->
+
+<hibernate-configuration>
+ <session-factory>
+   
+  <!-- JNDI connection --> 
+  <!--
+      <property name="connection.datasource">
+         ${diplegacy.jdbc}
+      </property>
+  -->
+  <!--    
+      <property name="connection.datasource">
+         jdbc/diplegacy
+      </property>
+  -->
+      <property name="hibernate.transaction.factory_class">
+            org.hibernate.transaction.JDBCTransactionFactory
+        </property>
+        <property name="hibernate.current_session_context_class">
+            thread
+        </property>
+
+  <!-- SQL dialect -->
+      
+      <property name="dialect">
+       org.hibernate.dialect.PostgreSQLDialect
+      </property>
+
+      <property name="hibernate.query.factory_class">
+        org.hibernate.hql.classic.ClassicQueryTranslatorFactory
+      </property>
+
+      <property name="show_sql">false</property>  
+
+  <!-- mapping resources -->
+
+      <mapping resource="edu/ucla/mbi/dip/DipNode.hbm.xml"/>
+
+      <mapping resource="edu/ucla/mbi/dip/CvType.hbm.xml"/>
+      <mapping resource="edu/ucla/mbi/dip/Organism.hbm.xml"/> 
+
+      <mapping resource="edu/ucla/mbi/dip/Link.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/LNode.hbm.xml"/> 
+
+      <mapping resource="edu/ucla/mbi/dip/Evidence.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/Inference.hbm.xml"/> 
+
+      <mapping resource="edu/ucla/mbi/dip/DataSrc.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/DipDataSrc.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/ImexSRec.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/DipSRec.hbm.xml"/> 
+
+      <mapping resource="edu/ucla/mbi/dip/CvTerm.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/CrossRef.hbm.xml"/> 
+
+      <mapping resource="edu/ucla/mbi/dip/Counts.hbm.xml"/> 
+      <mapping resource="edu/ucla/mbi/dip/CountTable.hbm.xml"/> 
+
+ </session-factory>
+</hibernate-configuration>

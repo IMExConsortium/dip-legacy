@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================
+ ! $HeadURL:: https://imex.mbi.ucla.edu/svn/dip-ws/trunk/dip-legacy/src/mai#$
+ ! $Id:: compass.cfg.xml 848 2010-01-15 00:11:50Z lukasz                    $
+ ! Version: $Rev:: 848                                                      $
+ !===========================================================================
+ !
+ ! Compass configuration:  hibernate configuration
+ !
+ !======================================================================= -->
+
+<compass-core-config xmlns="http://www.compass-project.org/schema/core-config"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.compass-project.org/schema/core-config
+           http://www.compass-project.org/schema/compass-core-config-2.1.xsd">
+ <compass name="default">
+  <connection>
+   <file path="${compass.dir}"/> 
+  </connection>
+  <mappings>
+      <class name="edu.ucla.mbi.dip.CvType" />
+      <class name="edu.ucla.mbi.dip.Organism" />
+      <class name="edu.ucla.mbi.dip.DipNode" />
+      <class name="edu.ucla.mbi.dip.LNode" />
+      <class name="edu.ucla.mbi.dip.Link" />
+      <class name="edu.ucla.mbi.dip.Evidence" />
+      <class name="edu.ucla.mbi.dip.DipDataSrc" />
+  </mappings> 
+ </compass>
+</compass-core-config>

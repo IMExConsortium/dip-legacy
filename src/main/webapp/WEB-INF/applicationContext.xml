@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- =======================================================================
+ ! $HeadURL:: https://imex.mbi.ucla.edu/svn/dip-ws/trunk/dip-proxy/src/mai#$
+ ! $Id:: applicationContext.xml 108 2009-06-12 22:20:56Z lukasz            $
+ ! Version: $Rev:: 108                                                     $
+ !==========================================================================
+ !
+ ! dip-proxy: application context
+ !
+ !====================================================================== -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+<!-- ===================================================== STRUTS ACTIONS -->
+
+<!-- <import resource="struts-actions.xml" /> -->
+
+<!-- ===================================================== REMOTE SERVERS -->
+
+<!--  <import resource="servers.xml" /> -->
+
+<!-- ======================================================= TRANSFORMERS -->
+
+<!--  <import resource="transformers.xml" /> -->
+
+<!-- ========================================================== SCHEDULER -->
+
+<!--  <import resource="scheduler.xml" /> -->
+
+<!-- ========================================================== AOP AUDIT -->
+
+<!-- <import resource="audit.xml" />  -->
+
+<!-- ============================================================ CONTEXT -->
+
+ <bean id="wsContext" init-method="initialize" destroy-method="cleanup"
+       class="edu.ucla.mbi.dip.DipContext">
+   <property name="reload" value="false"/>
+   <property name="reloadLimit" value="10"/>
+
+   <property name="indexReport" value="true"/>
+
+ </bean>
+
+</beans>

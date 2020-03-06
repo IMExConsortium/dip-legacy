@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       
+       xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+       xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/aop 
+          http://www.springframework.org/schema/aop/spring-aop.xsd
+          
+          http://jax-ws.dev.java.net/spring/core
+          http://jax-ws.dev.java.net/spring/core.xsd
+          http://jax-ws.dev.java.net/spring/servlet
+          http://jax-ws.dev.java.net/spring/servlet.xsd">  
+
+  <!-- ==================================================== CONFIGUATION -->
+
+  <bean id="applicationContextProvider"
+        class="edu.ucla.mbi.util.context.ApplicationContextProvider" />
+
+  <!-- ================================================== SERVER CONTEXT -->
+
+  <bean id="wsContext" init-method="initialize" destroy-method="cleanup"
+        class="edu.ucla.mbi.dip.DipContext">
+    <property name="reload" value="false"/>
+    <property name="reloadLimit" value="190"/>
+
+    <property name="indexReport" value="true"/>
+
+  </bean>
+    
+  <!-- ================================================== STRUTS ACTIONS -->
+
+  <import resource="actions.xml" />
+
+  <!-- ============================================= LEGACY WEB SERVICES -->
+
+  <bean id="dip-legacy" init-method="initialize"
+        class="edu.ucla.mbi.dip.services.legacy.DipLegacyPortImpl" >
+    <!--   
+    <property name="entryManager" ref="entryManager"/>
+    -->
+  </bean>
+  
+</beans>

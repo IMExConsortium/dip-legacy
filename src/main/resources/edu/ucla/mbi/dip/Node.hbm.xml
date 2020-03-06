@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.Node" table="plist" lazy="false">
+     <id name="id" column="pkey">
+       <generator class="native">
+         <param name="sequence">plist_pkey_seq</param>
+       </generator> 
+     </id>
+ 
+      <property name="label"   column="shn"/>
+      <property name="name"    column="name"/>
+
+      <many-to-one name="cvType"   column="cvt"  not-null="true" />
+      <many-to-one name="Organism" column="okey" not-null="true" />
+
+      <property name="refSeq"  column="refseq"/>
+      <property name="uniProt" column="swp"/>
+
+   </class>
+
+</hibernate-mapping>
+
+

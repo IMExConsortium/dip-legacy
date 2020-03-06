@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
+         version="2.5">
+
+  <display-name>DIP Legacy Web Service</display-name>
+
+  <!-- =================================================== ============= -->
+  <!-- =================================================== CONTEXT setup -->
+  <!-- =================================================== ============= -->
+
+  <context-param>
+
+    <!-- ================================================ TILES context  -->
+    <!-- default location: WEB-INF/tiles.xml -->
+    <!--
+    <param-name>
+      org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+    </param-name>
+    <param-value>
+      /WEB-INF/tiles.xml
+    </param-value>
+    -->
+    <!-- =============================================== SPRING context  -->
+
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+
+  </context-param>
+
+  <!-- =================================================== ============= -->
+  <!-- =================================================== FILTERS setup -->
+  <!-- =================================================== ============= -->
+
+  <!-- ================================================== STRUTS2 filter -->
+
+  <filter>
+    <filter-name>log4jServletFilter</filter-name>
+    <filter-class>
+      org.apache.logging.log4j.web.Log4jServletFilter
+    </filter-class>
+  </filter>
+
+  <filter>
+    <filter-name>action2</filter-name>
+    <filter-class>
+      org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter
+    </filter-class>
+  </filter>
+
+  <!--
+  <filter>
+    <filter-name>action2</filter-name>
+    <filter-class>
+      org.apache.struts2.dispatcher.FilterDispatcher
+    </filter-class>
+  </filter>
+  -->
+
+  <filter-mapping>
+    <filter-name>log4jServletFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <!-- Servlet 3.0 w/ disabled auto-initialization only; not supported in 2.5 -->
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+  
+  <!-- NOTE: check struts.xml for the pattern exclusion list !!! -->
+
+  <filter-mapping>
+    <filter-name>action2</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- ================================================= =============== -->
+  <!-- ================================================= LISTENERS setup -->
+  <!-- ================================================= =============== -->
+
+  <!-- ========================================== STRUTS2/TILES listener -->
+  
+  <listener>
+    <listener-class>
+      org.apache.struts2.tiles.StrutsTilesListener
+    </listener-class>
+  </listener>
+
+  <!-- ================================================= SPRING listener -->
+
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+  <!-- ================================================= JAX-WS listener -->
+
+  <listener>
+    <listener-class>
+      com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+    </listener-class>
+  </listener>
+  
+  <!-- ======================================= WSContextManager listener -->
+  <!--
+  <listener>
+   <listener-class>
+     edu.ucla.mbi.dip.WSContextManager
+   </listener-class>
+  </listener>
+  -->
+  <!-- ================================================= =============== -->
+  <!-- ================================================= Servlet startup -->
+  <!-- ================================================= =============== -->
+<!--
+  <servlet>
+    <servlet-name>dip-legacy</servlet-name>
+    <display-name>dip-legacy</display-name>
+    <servlet-class>
+      com.sun.xml.ws.transport.http.servlet.WSSpringServlet
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  -->
+  <!--
+  <servlet>
+    <servlet-name>cxf-service</servlet-name>
+    <display-name>cxf-service</display-name>
+    <description>Apache CXF Endpoint</description>
+    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+-->
+  <!-- ================================================= =============== -->
+  <!-- ================================================= Servlet mapping -->
+  <!-- ================================================= =============== -->
+<!--
+  <servlet-mapping>
+    <servlet-name>dip-legacy</servlet-name>
+    <url-pattern>/dxf</url-pattern>
+  </servlet-mapping>
+  -->
+  <!--
+  <servlet-mapping>
+    <servlet-name>cxf-service</servlet-name>
+    <url-pattern>/dxf</url-pattern>
+  </servlet-mapping>
+  -->
+  <!-- ================================================ ================ -->
+  <!-- ================================================ = MIME mapping = -->
+  <!-- ================================================ ================ -->
+
+  <mime-mapping>
+    <extension>inc</extension>
+    <mime-type>text/plain</mime-type>
+  </mime-mapping>
+  
+  <!-- ================================================ ================ -->
+  <!-- ================================================ = WELCOME page = -->
+  <!-- ================================================ ================ -->
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>

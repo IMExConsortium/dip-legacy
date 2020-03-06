@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+
+ <endpoint name="dip-legacy"
+  interface="edu.ucla.mbi.legacy.dip.DipLegacyPort"
+  implementation="edu.ucla.mbi.dip.services.legacy.DipLegacyPortImpl"
+  wsdl="WEB-INF/DipLegacyService.wsdl"
+  url-pattern="/dxf"/>
+
+</endpoints>

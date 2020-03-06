@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<!-- ========================================================================
+ ! $HeadURL:: https://imex.mbi.ucla.edu/svn/dip-ws/trunk/dip-proxy/src/main#$
+ ! $Id:: tiles.xml 58 2009-05-19 19:29:49Z dip                              $
+ ! Version: $Rev:: 58                                                       $
+ !===========================================================================
+ !
+ ! struts2: main tiles configuration
+ !
+ !======================================================================= -->
+
+<tiles-definitions>
+
+ <definition name="main" template="/tiles/main.jsp">
+ </definition>
+
+<!--
+ <definition name="header" template="/tiles/header.jsp">
+ </definition>
+
+ <definition name="footer" template="/tiles/footer.jsp">
+ </definition>
+
+
+ <definition name="node" template="/tiles/node.jsp">
+ </definition>
+
+ <definition name="native" template="/tiles/main.jsp">
+ </definition>
+
+ <definition name="cache" template="/tiles/cache.jsp">
+ </definition>
+
+ <definition name="status" template="/tiles/status.jsp">
+   <put-attribute name="header" value="header" />
+   <put-attribute name="footer" value="footer" />
+   <put-attribute name="body" value="main" />
+ </definition>
+
+ <definition name="nodestatus" extends="status">
+   <put-attribute name="body" value="node" />
+ </definition>
+
+ <definition name="nativestatus" extends="status">
+   <put-attribute name="body" value="native" />
+ </definition>
+
+ <definition name="cachestatus" extends="status">
+   <put-attribute name="body" value="cache" />
+ </definition>
+-->
+
+</tiles-definitions>

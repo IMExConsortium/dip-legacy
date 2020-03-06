@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.CvTerm" table="cvterm" lazy="false">
+     <id name="id" column="id">
+       <generator class="native">
+         <param name="sequence">cvterm_id_seq</param>
+       </generator>
+     </id>
+ 
+      <property name="cvId" column="cvid"/>
+
+      <property name="name"       column="name"/>
+      <property name="definition" column="definition"/>
+      <property name="depreciated" column="depreciated"/>
+<!--    
+      <set name="parents" table="cvterm_parent">
+         <key column="id_term" />
+          <many-to-many column="id_parent" class="edu.ucla.mbi.dip.CvParent" />
+      </set>  
+-->
+   </class>
+
+</hibernate-mapping>
+
+

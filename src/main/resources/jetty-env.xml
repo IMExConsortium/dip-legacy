@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <New class="org.eclipse.jetty.plus.jndi.Resource" >
+    <Arg><Ref id="Server"/></Arg>
+    <Arg>jdbc/diplegacy</Arg>
+    <Arg>
+
+      <New id="diplegacy" class="org.postgresql.ds.PGPoolingDataSource">   
+        <!--<Set name="dataSourceName">jdbc/diplegacy</Set> -->
+        <Set name="User">dip</Set>
+        <Set name="Password">444dip444</Set>
+        <Set name="DatabaseName">dip</Set>
+        <Set name="ServerName">10.1.216.101</Set>
+        <Set name="PortNumber">5432</Set>
+        <Set name="maxConnections">10</Set>
+      </New>
+    </Arg>
+  </New>
+  <!--
+  <Call name="setAttribute">
+    <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
+    <Arg>.*/spring-[^/]*\.jar$</Arg>
+  </Call>
+  -->
+</Configure>

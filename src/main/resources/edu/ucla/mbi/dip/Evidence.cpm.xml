@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+
+<!-- ======================================================================
+ ! $HeadURL::                                                             $
+ ! $Id::                                                                  $
+ ! Version: $Rev::                                                        $
+ !=========================================================================
+ !
+ ! Evidence: compass maping
+ !
+ !===================================================================== -->
+
+<compass-core-mapping package="edu.ucla.mbi.dip">
+
+  <class name="Evidence" alias="evidence" root="true" support-unmarshall="false">
+    <id name="id">
+     <meta-data>dip_id</meta-data>
+    </id>
+
+    <property name="accession">
+      <meta-data>dip</meta-data>
+    </property>
+
+    <property name="imex254">
+      <meta-data>imex</meta-data>
+    </property>
+         
+    <component name="cvtDetMethod" max-depth="3" prefix="int_id_met_"/>
+    <component name="cvtDetType" max-depth="3" prefix="int_det_type_"/>
+    <component name="cvtExpScale" max-depth="3" prefix="ev_scale_"/>
+
+    <component name="link" cascade="save"/>
+
+  </class>
+
+  <class name="CvTerm" alias="cvterm" root="false">
+   <id name="id"/>
+
+   <property name="name">
+    <meta-data>name</meta-data>
+   </property>
+   <property name="cvId">
+    <meta-data>cvid</meta-data>
+   </property>
+  </class>
+</compass-core-mapping>

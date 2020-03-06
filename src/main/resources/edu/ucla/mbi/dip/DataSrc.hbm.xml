@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.DataSrc" table="slist" lazy="false">
+     <id name="id" column="skey">
+       <generator class="native">
+         <param name="sequence">slist_skey_seq</param>
+       </generator> 
+     </id>
+
+      <property name="label"   column="shn"/>
+      <property name="name"    column="name"/>
+      <property name="public"   formula="(select export or imex_dts = 0)" />
+
+      <many-to-one name="cvType"   column="cvt"  not-null="true" />
+
+      <property name="pmid"     column="pmid"/>
+      <property name="imexSrc"  column="imex_dts"/>
+
+   </class>
+
+</hibernate-mapping>
+
+

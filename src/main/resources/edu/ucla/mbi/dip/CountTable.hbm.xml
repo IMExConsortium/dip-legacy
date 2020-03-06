@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="edu.ucla.mbi.dip.CountTable" table="counts" lazy="false">
+     <id name="id" column="pk">
+       <generator class="native"/>
+     </id>
+
+      <property name="dtsgrp" column="dtsgrp"/>    
+      <property name="taxgrp" column="taxgrp"/>    
+      <property name="curgrp" column="curgrp"/>    
+      <property name="infgrp" column="infgrp"/>    
+
+      <property name="taxonCountAll" column="txcnt_all"/>
+      <property name="taxonCountEvd" column="txcnt_evd"/>
+      <property name="taxonCountInf" column="txcnt_inf"/>
+
+      <property name="proteinCountAll" column="ndcnt_all"/>
+      <property name="proteinCountEvd" column="ndcnt_evd"/>
+      <property name="proteinCountInf" column="ndcnt_inf"/>
+      
+      <property name="interactionCountAll" column="edcnt_all"/>
+      <property name="interactionCountEvd" column="edcnt_evd"/>
+      <property name="interactionCountInf" column="edcnt_inf"/>
+
+      <property name="evidenceCountAll" column="evcnt_all"/>
+      <property name="evidenceCountEvd" column="evcnt_evd"/>
+      <property name="evidenceCountInf" column="evcnt_inf"/>
+      
+      <property name="sourceCountAll" column="dscnt_all"/>
+      <property name="sourceCountEvd" column="dscnt_evd"/>
+      <property name="sourceCountInf" column="dscnt_inf"/>
+
+      <property name="intEvidCountAll" column="iecl_all"/>
+      <property name="intEvidCountEvd" column="iecl_evd"/>
+      <property name="intEvidCountInf" column="iecl_inf"/>
+   </class>
+
+</hibernate-mapping>
+

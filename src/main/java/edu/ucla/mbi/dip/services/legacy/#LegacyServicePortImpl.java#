@@ -1,0 +1,247 @@
+package edu.ucla.mbi.dip.services.legacy;
+        
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
+
+import java.util.*;
+
+import edu.ucla.mbi.dip.services.soap.*;
+
+import edu.ucla.mbi.dxf15.*;
+//import edu.ucla.mbi.dip.database.*;
+//import edu.ucla.mbi.dip.database.legacy.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+/**
+import org.apache.commons.codec.binary.Base64;
+
+import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.BindingProvider; 
+import javax.xml.ws.Holder;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.handler.MessageContext; 
+
+import java.util.*;
+import java.util.regex.*;
+import java.text.DecimalFormat;
+import java.io.InputStream;
+
+import javax.annotation.*;         
+
+import edu.ucla.mbi.util.struts.*;
+import edu.ucla.mbi.util.context.*;
+import edu.ucla.mbi.util.data.*;
+import edu.ucla.mbi.util.data.dao.*;
+
+import edu.ucla.mbi.imex.central.*;
+import edu.ucla.mbi.imex.central.dao.*;
+import edu.ucla.mbi.imex.central.ws.v20.*;
+**/
+
+@WebService(serviceName = "DipService", 
+            portName = "DipServicePort", 
+            endpointInterface = "edu.ucla.mbi.dip.services.soap.DipServicePort", 
+            targetNamespace = "http://mbi.ucla.edu/dip/services/soap",
+            wsdlLocation = "/WEB-INF/wsdl/dipservices-2.1.wsdl") 
+
+            
+public class LegacyServicePortImpl implements DipServicePort {
+
+    //    @Resource 
+    // DipServiceContext dscontext;
+    
+    //--------------------------------------------------------------------------
+    
+    private static String WS_ACTION ="ws-v21";
+    private static String WS_UPD = "update";
+    private static String WS_SRC = "search";
+    
+    private static String REQUEST = "Curation Request";
+    
+    private static final Logger log
+        = LoggerFactory.getLogger(LegacyServicePortImpl.class);
+    
+    public void initialize(){
+
+    }
+    
+    //LegacyRecordManager recordManager;
+
+    //public void setRecordManager( LegacyRecordManager manager ){
+    //    this.recordManager = manager;
+    //}
+    
+    //LegacyQueryManager queryManager;
+
+    //public void setQueryManager( LegacyQueryManager manager ){
+    //    this.queryManager = manager;
+    //}
+    
+
+    //--------------------------------------------------------------------------
+    // service  interface
+    //--------------------
+    
+    public DatasetType getCrossRefList( GetCrossRef request){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType getCounts( GetCounts request ){
+        return null;                                           
+    }                                                          
+
+    public edu.ucla.mbi.dxf15.DatasetType getSourceBounds( GetSourceBounds request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getSourceRange( GetSourceRange request ){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType getSource( GetSource request ){
+        return null;
+    }
+
+    public List<XrefType> getSourceList( String ns, String ac,
+                                         String match,
+                                         String detail, String format ){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType getNodeBounds( GetNodeBounds request ){
+        return null;
+    }
+
+    public  edu.ucla.mbi.dxf15.DatasetType getNodeRange( GetNodeRange request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getNode( GetNode request ){
+        /*
+        if( ns != null && ns.toLowerCase().equals("dip") &&
+            ac!= null ){
+            
+            DipNode dipnode = recordManager.getNode( ac );
+
+            if( dipnode!= null ){
+
+                List<NodeType> nlist = new ArrayList<NodeType>();
+                nlist.add( dipnode.getDxfNode( detail ) );
+                
+                return nlist; 
+            }
+        }
+        */
+        return null;
+    }
+    
+    public List<XrefType>  getNodeList( String ns, String ac, String match,
+                                        String detail,String format ){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType matchNode( MatchNode request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getLinkBounds( GetLinkBounds request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getLinkRange( GetLinkRange request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getLink(GetLink request ){
+        return null;
+    }
+
+    public List<XrefType> getLinkList( String ns, String ac,
+                                       String match,
+                                       String detail, String format ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getEvidence( GetEvidence request ){
+        return null;
+    }
+
+    public List<XrefType> getEvidenceList( String ns, String ac,
+                                           String match,
+                                           String detail, String format){
+        return null;
+    }
+
+    public String getImexSRec( GetImexSRec request ){
+        return null;
+    }
+
+    public String getDipSRec( GetDipSRec request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType getLinksByNodeSet( GetLinksByNodeSet request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType transform( Transform request ){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType query( Query request){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType status( Status request ){        
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType setNode(  SetNode request ){
+                                  
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType setLink( SetLink request ){                                   
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType setEvidence( SetEvidence request ){
+        return null;
+    }
+
+    public edu.ucla.mbi.dxf15.DatasetType dropEvidence( DropEvidence request){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType setSource( SetSource request ){
+        return null;
+    }
+    
+    public edu.ucla.mbi.dxf15.DatasetType dropSource( DropSource request ){
+        return null;
+    }
+
+    public String setImexSRec( SetImexSRec request ){
+        return null;
+    }
+
+    public String dropImexSRec( DropImexSRec request){
+        return null;
+    }
+    
+}
