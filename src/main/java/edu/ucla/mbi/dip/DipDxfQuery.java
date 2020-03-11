@@ -17,18 +17,18 @@ import org.compass.core.config.CompassConfigurationFactory;
 public class DipDxfQuery {
     
     static edu.ucla.mbi.dxf14.ObjectFactory dof
-	= new edu.ucla.mbi.dxf14.ObjectFactory();
+        = new edu.ucla.mbi.dxf14.ObjectFactory();
 
     public static edu.ucla.mbi.dxf14.DatasetType
         queryLC( String query, String detail ) {
 	
-	Log log = LogFactory.getLog(DipDxfQuery.class);
-	log.info("DipDxfQuery: queryLC called");
+        Log log = LogFactory.getLog(DipDxfQuery.class);
+        log.info("DipDxfQuery: queryLC called");
         log.info("DipDxfQuery: query= "+query+" det="+detail);
 	
-	DatasetType res = dof.createDatasetType();
-
-	if( query != null ) {
+        DatasetType res = dof.createDatasetType();
+    
+        if( query != null ) {
 
             // MIQLX
             //------
@@ -43,30 +43,30 @@ public class DipDxfQuery {
 
             log.info("query:" + query +":mqlx:" + miqlx + ":");
             
-	    try {
-		CompassSession searchsession = 
+            try {
+                CompassSession searchsession = 
                     DipContext.getCompass().openSession();
                 CompassTransaction stx = searchsession.beginTransaction();
                 
                 CompassHits hits = searchsession.find( query );
                 log.info(" Found [" + hits.getLength() + "]");
                 
-		if( hits.getLength()>0 ){
+                if( hits.getLength()>0 ){
                     
                     if( miqlx != null && miqlx.get( "MiqlxFacetBy:" ) != null  ){
                         Map<String,String> facet = 
                             buildFacet( hits, miqlx.get( "MiqlxFacetBy:" ) );
-
+                        
                         NodeType facetNode 
                             = dxfFacet( query, miqlx.get( "MiqlxFacetBy:" ), 
                                         facet );
-
+                        
                         if( facetNode != null ){
                             res.getNode().add( facetNode );      
                         }
-
+                        
                     } else {
-
+                        
                         NodeType resultNode = dxfResult( query, hits );
                         
                         if( resultNode != null ){
@@ -74,15 +74,15 @@ public class DipDxfQuery {
                         }                        
                     }
                     
-		    hits.close();
+                    hits.close();
                     stx.commit();
-		    searchsession.close();
-		}
+                    searchsession.close();
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-	}
-	return res;
+        }
+        return res;
     }
     
     //--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ public class DipDxfQuery {
         //----------------------------------------------------------------------
 
         if( facetFldList.get(0).equals( "organism" )) {
-                     
+            
             for (int i = 0; i < hits.getLength(); i++ ){
                 
                 Resource resource = hits.resource(i);
@@ -125,7 +125,7 @@ public class DipDxfQuery {
      
                 if( resource.getProperty("nd_nd_taxname") != null 
                     && resource.getProperty("nd_nd_taxid") != null ){
-
+                    
                     String txn  = resource
                         .getProperty("nd_nd_taxname").getStringValue();
                     String txid = resource
@@ -152,9 +152,9 @@ public class DipDxfQuery {
     
     private static edu.ucla.mbi.dxf14.NodeType
         dxfResult( String query, CompassHits hits ){
-
+        
         Log log = LogFactory.getLog(DipDxfQuery.class);
-
+        
         edu.ucla.mbi.dxf14.NodeType resNode= dof.createNodeType();
         
         resNode.setLabel("Text Search Report");

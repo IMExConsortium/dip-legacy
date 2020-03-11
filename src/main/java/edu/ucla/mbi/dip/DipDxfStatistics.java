@@ -1,16 +1,5 @@
 package edu.ucla.mbi.dip;
 
-/* =============================================================================
- * $Id:: DipDxfStatistics.java 2191 2012-04-24 00:47:31Z lukasz                $
- * Version: $Rev:: 2191                                                        $
- *==============================================================================
- *                                                                             $
- *  DipDxfStatistics  - retrieves statistics info                              $
- *                                                                             $
- *    NOTES:   should return ttl info ?                                        $
- *                                                                             $
- *=========================================================================== */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

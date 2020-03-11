@@ -84,19 +84,7 @@ public class DipContext {
         
         Log log = LogFactory.getLog( this.getClass() );
         log.info( "DipContext: initialize" );
-        System.out.println( "DipContext: initialize" );
 
-        /*
-        Map m = null;
-        
-        try {
-             m = toMap(new InitialContext());
-        } catch(Exception x){
-
-        }
-
-        System.out.println(m);
-        */
         try{
             
             // initialize compass
@@ -251,8 +239,10 @@ public class DipContext {
     
     public void cleanup() {
 
-	compass.close();
-	System.out.println("Stopping EbiPublic init");
+        Log log = LogFactory.getLog( this.getClass() );
+        log.info("Cleanup:");
+        compass.close();
+        log.info("Cleanup: DONE");
     }
 
     //---------------------------------------------------------------------

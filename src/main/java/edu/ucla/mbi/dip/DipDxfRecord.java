@@ -1,16 +1,5 @@
 package edu.ucla.mbi.dip;
 
-/* =============================================================================
- * $Id:: DipDxfRecord.java 3259 2013-06-25 18:27:25Z lukasz                    $
- * Version: $Rev:: 3259                                                        $
- *------------------------------------------------------------------------------
- *                                                                             
- *  DipDxfRecord  - retrieves dip records                                      
- *                                                                             
- *    NOTES:   should return ttl info ?                                        
- *                                                                             
- *=========================================================================== */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,18 +33,18 @@ public class DipDxfRecord {
     static CountsDAO dcDAO = null;
 
     static edu.ucla.mbi.dxf14.ObjectFactory dof
-	= new edu.ucla.mbi.dxf14.ObjectFactory();
+        = new edu.ucla.mbi.dxf14.ObjectFactory();
     
     //--------------------------------------------------------------------------
 
     public static edu.ucla.mbi.dxf14.DatasetType
         getNode( String ns, String ac, String detail ) {
-	
-	Log log = LogFactory.getLog( DipDxfRecord.class );
-	log.debug( "getNode called" );
+        
+        Log log = LogFactory.getLog( DipDxfRecord.class );
+        log.debug( "getNode called" );
         log.debug( "ns= " + ns + " ac=" + ac + " det=" + detail );
 
-	DatasetType res = dof.createDatasetType();
+        DatasetType res = dof.createDatasetType();
         
         if( ns == null || ac == null ){ return res; }
         
@@ -66,13 +55,13 @@ public class DipDxfRecord {
         }
         
         DipNode dnode = null;
-
+        
         if( ns.equals("dip") ){
             dnode = nDAO.find( new Integer( ac.replaceAll( "[^0-9]", "" ) ) );
         }       
         if( ns.equals( "refseq") ){
             List dnl = nDAO.findByRefSeq( ac );
-
+            
             if( dnl != null ){
                 for( Iterator i = dnl.iterator(); i.hasNext(); ){
                     DipNode cn = (DipNode) i.next();
@@ -86,16 +75,15 @@ public class DipDxfRecord {
         
         if( ns.toLowerCase().equals( "uniprot" ) 
             || ns.toLowerCase().equals("uniprotkb") ){
-
+            
             log.debug("findByUniProt: up="+ac);
-
+            
             List dnl = nDAO.findByUniProt( ac );
-
-
+            
             if( dnl != null ){
-
+                
                 log.debug("findByUniProt: count=" + dnl.size());
-
+                
                 for( Iterator i = dnl.iterator(); i.hasNext(); ){
                     DipNode cn = (DipNode) i.next();
                     res.getNode()
@@ -114,18 +102,16 @@ public class DipDxfRecord {
         log.debug( "getNode: DONE\n" );
         return res;
     }
-
+    
     //--------------------------------------------------------------------------
-
+    
     public static edu.ucla.mbi.dxf14.DatasetType
         getNodeBySequence( String sequence, String detail ){
+        	
+        Log log = LogFactory.getLog( DipDxfRecord.class );
+        log.debug( "getNode called" );
 
-
-	
-	Log log = LogFactory.getLog( DipDxfRecord.class );
-	log.debug( "getNode called" );
-
-	DatasetType res = dof.createDatasetType();
+        DatasetType res = dof.createDatasetType();
 
         if( sequence == null ){ return res; }
         
@@ -151,7 +137,7 @@ public class DipDxfRecord {
         }
         
         DipNode dnode = null;
-
+        
         List dnl = nDAO.findBySequence( sequence );
         
         if( dnl != null ){
@@ -163,7 +149,7 @@ public class DipDxfRecord {
                                     DxfLevel.fromString( detail ) ) );
             }
         }       
-                
+        
         log.debug( "getNode(by Sequence): DONE\n" );
         return res;
     }
@@ -173,13 +159,13 @@ public class DipDxfRecord {
     
     public static edu.ucla.mbi.dxf14.DatasetType
         getNodeRange( long fr, long to, String detail ) {
-
+        
         Log log = LogFactory.getLog( DipDxfRecord.class );
         log.debug( "getNodeRange called" );
         log.debug( "from= " + fr + " to=" + to + " det=" + detail );
-
+        
         DatasetType res = dof.createDatasetType();
-
+        
         if( nDAO == null ) {
             log.debug( "DipSOAP:   Creating NodeDAO..." );
             nDAO = new NodeDAO();
@@ -187,7 +173,7 @@ public class DipDxfRecord {
         }
         
         List<DipNode> nodeList = nDAO.findRange( fr, to );
-
+        
         if( nodeList == null || nodeList.size() == 0 ){
             log.debug( "getNodeRange: DONE(no hits)\n" );
             return res;
@@ -201,21 +187,21 @@ public class DipDxfRecord {
                 .add( DipDxfUtil.dip2dxf( ni.next(), id++,
                                           DxfLevel.fromString( detail ) ) );
         }
-
+        
         log.debug( "getNodeRange: DONE\n" );
         return res;
     }
 
     //--------------------------------------------------------------------------
-
+    
     public static edu.ucla.mbi.dxf14.DatasetType
         getLink( String ns, String ac, String detail ) {
-	
-	Log log = LogFactory.getLog( DipDxfRecord.class );
-	log.debug( "getLink called" );
+        
+        Log log = LogFactory.getLog( DipDxfRecord.class );
+        log.debug( "getLink called" );
         log.debug( "ns= " + ns + " ac=" + ac + " det=" + detail );
-	
-	DatasetType res = dof.createDatasetType();
+        
+        DatasetType res = dof.createDatasetType();
         
         if( lDAO == null ) {
             log.debug( "DipSOAP:   Creating LinkDAO..." );
@@ -234,18 +220,18 @@ public class DipDxfRecord {
         
         return res;
     }
-
+    
     //--------------------------------------------------------------------------
     
     public static edu.ucla.mbi.dxf14.DatasetType
         getLinkRange( long fr, long to, String detail ) {
-
+        
         Log log = LogFactory.getLog( DipDxfRecord.class );
         log.debug( "getLinkRange called" );
         log.debug( "from= " + fr + " to=" + to + " det=" + detail );
-
+        
         DatasetType res = dof.createDatasetType();
-
+        
         if( lDAO == null ) {
             log.debug( "DipSOAP:   Creating LinkDAO..." );
             lDAO = new LinkDAO();
@@ -253,7 +239,7 @@ public class DipDxfRecord {
         }
         
         List<Link> linkList = lDAO.findRange( fr, to );
-
+        
         if( linkList == null || linkList.size() == 0 ){
             log.debug( "getLinkRange: DONE(no hits)\n" );
             return res;
@@ -262,33 +248,33 @@ public class DipDxfRecord {
         long id = 0;
         
         for( Iterator<Link> li = linkList.iterator(); li.hasNext(); ){
-
+            
             res.getNode()
                 .add( DipDxfUtil.dip2dxf( li.next(), id++,
                                           DxfLevel.fromString( detail ) ) );
         }
-
+        
         log.debug( "getLinkRange: DONE\n" );
         return res;
     }
-
+    
     //--------------------------------------------------------------------------
-
+    
     public static edu.ucla.mbi.dxf14.DatasetType
         getEvidence( String ns, String ac, String detail ) {
-	
-	Log log = LogFactory.getLog( DipDxfRecord.class );
-	log.debug( "getEvidence called" );
+        
+        Log log = LogFactory.getLog( DipDxfRecord.class );
+        log.debug( "getEvidence called" );
         log.debug( "ns= " + ns + " ac=" + ac + " det=" + detail );
-	
-	DatasetType res = dof.createDatasetType();
-
+        
+        DatasetType res = dof.createDatasetType();
+        
         if( xDAO == null ) {
             log.debug( "DipSOAP:   Creating EvidenceDAO..." );
             xDAO = new EvidDAO();
             log.debug( "DipSOAP:   ...done" );
         }
-
+        
         Evidence devid = null;
         
         if( ns.equalsIgnoreCase( "dip" ) ){                
@@ -304,23 +290,23 @@ public class DipDxfRecord {
         if( devid != null ) {
             res.getNode()
                 .add( DipDxfEvidUtil.dip2dxf( devid, 1L,
-                                          DxfLevel.fromString( detail ) ) );
+                                              DxfLevel.fromString( detail ) ) );
         }
         log.debug( "getEvidence: DONE\n" );
         
         return res;
     }
-
+    
     //--------------------------------------------------------------------------
         
     public static edu.ucla.mbi.dxf14.DatasetType
         getSource( String ns, String ac, String detail ) {
 	
-	Log log = LogFactory.getLog( DipDxfRecord.class );
-	log.debug( "getSource called" );
+        Log log = LogFactory.getLog( DipDxfRecord.class );
+        log.debug( "getSource called" );
         log.debug( "ns= " + ns + " ac=" + ac + " det=" + detail );
-	
-	DatasetType res = dof.createDatasetType();
+        
+        DatasetType res = dof.createDatasetType();
         if(ns == null || ac == null){  return res; }
         
         if( ddsDAO == null ) {
@@ -330,17 +316,17 @@ public class DipDxfRecord {
         }
         
         DipDataSrc dsrc = null;
-
+        
         if( ns.equals("dip") ){
             dsrc = ddsDAO.find( new Integer( ac.replaceAll( "[^0-9]", "" ) ) );
         }
-
+        
         if( ns.equals("pubmed") ){
             dsrc = ddsDAO. findByPmid( ac );
         }
-
+        
         if( dsrc != null ) {
-
+            
             res.getNode().add( DipDxfDataSrcUtil
                                .dip2dxf( dsrc, 1L,
                                          DxfLevel.fromString( detail ) ) );
@@ -354,13 +340,13 @@ public class DipDxfRecord {
     
     public static edu.ucla.mbi.dxf14.DatasetType
         getSourceRange( long fr, long to, String detail ) {
-
+        
         Log log = LogFactory.getLog( DipDxfRecord.class );
         log.debug( "getSourceRange called" );
         log.debug( "from= " + fr + " to=" + to + " det=" + detail );
-
+        
         DatasetType res = dof.createDatasetType();
-
+        
         if( ddsDAO == null ) {
             log.debug( "DipSOAP:   Creating DipDataSrcDAO..." );
             ddsDAO = new DipDataSrcDAO();
@@ -368,7 +354,7 @@ public class DipDxfRecord {
         }
         
         List<DipDataSrc> ddsList = ddsDAO.findRange( fr, to );
-
+        
         if( ddsList == null || ddsList.size() == 0 ){
             log.debug( "getSourceRange: DONE(no hits)\n" );
             return res;
@@ -377,18 +363,18 @@ public class DipDxfRecord {
         long id = 0;
         
         for( Iterator<DipDataSrc> dsi = ddsList.iterator(); dsi.hasNext(); ){
-
+            
             res.getNode().add( DipDxfDataSrcUtil
                                .dip2dxf( dsi.next(), id++,
                                          DxfLevel.fromString( detail ) ) );
         }
-
+        
         log.debug( "getSourceRange: DONE\n" );
         return res;
     }
-
+    
     //--------------------------------------------------------------------------
-
+    
     /*
 
 	if( query != null ) {

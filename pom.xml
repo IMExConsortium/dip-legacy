@@ -30,11 +30,7 @@
 
     <dip-services-api.version>3.0.0</dip-services-api.version>
     <dip-util.version>3.0.0</dip-util.version>
-
-    <commons-logging.version>1.2</commons-logging.version>
-    <junit.version>4.12</junit.version>
-    <log4j.version>2.9.1</log4j.version>
-
+    
     <jaxws-api.version>2.3.1</jaxws-api.version>
     <jaxws-rt.version>2.3.0</jaxws-rt.version>
     <javax.jws-api.version>1.1</javax.jws-api.version>
@@ -50,11 +46,16 @@
 
     <cglib.version>3.3.0</cglib.version>
     <cxf.version>3.3.2</cxf.version>
-    <slf4j.version>1.7.30</slf4j.version>
+
     <hibernate.version>5.4.4.Final</hibernate.version>
     <c3p0.version>0.9.5.4</c3p0.version>
     <postgresql.version>42.2.6</postgresql.version>
     <json.version>20190722</json.version>
+
+    <commons-logging.version>1.2</commons-logging.version>
+    <log4j.version>2.13.1</log4j.version>
+    <junit.version>4.12</junit.version>
+
     
  </properties>
 
@@ -217,22 +218,34 @@
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-web</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+       
+    <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>${commons-logging.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-   
+    
  </dependencies>
 
  <build>

@@ -30,12 +30,9 @@ import edu.ucla.mbi.dip.*;
 
 public class DipLegacyPortImpl implements DipLegacyPort {
 
-    public void initialize(){
-        
-        Log log = LogFactory.getLog( DipLegacyPortImpl.class );
-        System.out.println( "DipLegacyPortImpl: Initializing" );
+    public void initialize(){  
+        Log log = LogFactory.getLog( DipLegacyPortImpl.class );        
         log.info( "DipLegacyPortImpl: Initializing" );
-
     }
     
     public java.util.List<edu.ucla.mbi.dxf14.XrefType>
