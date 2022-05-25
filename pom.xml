@@ -41,7 +41,7 @@
     <dip-util.version>3.0.0</dip-util.version>
     <dip-portal.version>${version}</dip-portal.version>
 
-    <spring.version>5.2.3.RELEASE</spring.version>
+    <spring.version>5.2.22.RELEASE</spring.version>
     <aspectj.version>1.9.5</aspectj.version>
 
     <cglib.version>3.3.0</cglib.version>
